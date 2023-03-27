@@ -1,6 +1,7 @@
 package servlet;
 
 import entity.Operation;
+import service.CalculatorService;
 import storage.JDBCOperationStorage;
 import storage.OperationStorage;
 
@@ -18,11 +19,11 @@ import java.util.List;
 @WebServlet("/calc/storage")
 public class CalculatorStorageServlet extends HttpServlet {
 
-    private final OperationStorage storage = new JDBCOperationStorage();
+    private final CalculatorService calculatorService = new CalculatorService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Operation> all = storage.findAll();
+        List<Operation> all = calculatorService.findAll();
         for (Operation operation : all) {
             resp.getWriter().print(operation.toString() + "\n");
         }

@@ -5,11 +5,11 @@ package entity;
  */
 public class Operation {
 
-    double num1;
-    double num2;
-    double result;
-    String type;
-    int id;
+    private double num1;
+    private  double num2;
+    private double result;
+    private String type;
+    private int id;
 
     public Operation(double num1, double num2, String type) {
         this.num1 = num1;

@@ -6,6 +6,7 @@ import storage.JDBCOperationStorage;
 import storage.OperationStorage;
 
 import java.io.IOException;
+import java.util.List;
 
 
 /**
@@ -34,5 +35,8 @@ public class CalculatorService {
                 return operation;
         }
         return operation;
+    }
+    public List<Operation> findAll() throws IOException {
+        return storage.findAll();
     }
 }
