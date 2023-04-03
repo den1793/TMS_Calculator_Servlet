@@ -13,24 +13,28 @@ import java.io.IOException;
 /**
  * @author Denis Smirnov
  */
-@WebServlet(value = "/calc", name = "CalculatorServlet")
+@WebServlet(name = "CalculatorServlet", value = "/calc")
 public class CalculatorServlet extends HttpServlet {
     private final CalculatorService calculatorService = new CalculatorService();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String sNum1 = req.getParameter("num1");
-        String sNum2 = req.getParameter("num2");
-        String type = req.getParameter("operation-type").toUpperCase();
-
-        double num1 = Double.parseDouble(sNum1);
-        double num2 = Double.parseDouble(sNum2);
-
-        Operation operation = calculatorService.calculate(new Operation(num1,num2,type));
+        req.getRequestDispatcher("/pages/calc.jsp").forward(req, resp);
 
 
-        resp.getWriter().print(operation.getResult());
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        double num1 = Double.parseDouble(req.getParameter("num1"));
+        double num2 = Double.parseDouble(req.getParameter("num2"));
+        String type = req.getParameter("type").toUpperCase();
 
 
+        Operation operation = calculatorService.calculate(new Operation(num1, num2, type));
 
+        req.setAttribute("result", operation.getResult());
+        req.getRequestDispatcher("/pages/calc.jsp").forward(req, resp);
     }
 }

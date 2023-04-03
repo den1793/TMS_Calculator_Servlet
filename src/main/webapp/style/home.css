@@ -1,0 +1,32 @@
+body {
+    font-family: "Times New Roman", serif;
+    background-color: #D3D3D3 ;
+}
+#information-block {
+    text-align: center;
+}
+
+.container-fluid {
+    text-align: center;
+}
+.my-img {
+    width:350px;
+}
+
+img {
+    width: 28px;
+}
+
+.nav-item {
+
+    text-align: right;
+    display: inline-block;
+}
+
+ul.types {
+    text-align: center;
+    display: inline-block;
+}
+
+
+

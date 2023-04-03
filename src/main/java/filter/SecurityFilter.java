@@ -1,7 +1,5 @@
 package filter;
 
-import validator.OperationValidator;
-
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebFilter;
@@ -13,22 +11,14 @@ import java.io.IOException;
 /**
  * @author Denis Smirnov
  */
-
 @WebFilter(servletNames = "CalculatorServlet")
-public class CalculatorFilter extends HttpFilter {
-
-    private final OperationValidator operationValidator = new OperationValidator();
-
+public class SecurityFilter extends HttpFilter {
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
-
-        String num1 = req.getParameter("num1");
-        String num2 = req.getParameter("num2");
-
-        if(operationValidator.validNum(num1) & operationValidator.validNum(num2)) {
-            chain.doFilter(req, res);
+        if (req.getSession().getAttribute("user") == null) {
+            res.sendError(403);
         } else {
-            res.sendError(HttpServletResponse.SC_REQUESTED_RANGE_NOT_SATISFIABLE, "Invalid request!");
+            chain.doFilter(req, res);
         }
     }
 }

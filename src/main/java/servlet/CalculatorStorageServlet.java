@@ -2,8 +2,6 @@ package servlet;
 
 import entity.Operation;
 import service.CalculatorService;
-import storage.JDBCOperationStorage;
-import storage.OperationStorage;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,17 +14,27 @@ import java.util.List;
 /**
  * @author Denis Smirnov
  */
-@WebServlet("/calc/storage")
+@WebServlet("/history")
 public class CalculatorStorageServlet extends HttpServlet {
 
     private final CalculatorService calculatorService = new CalculatorService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         List<Operation> all = calculatorService.findAll();
+        StringBuilder operationBuilder = new StringBuilder();
         for (Operation operation : all) {
-            resp.getWriter().print(operation.toString() + "\n");
+            String operationList = operation.getNum1() + " " + operation.getType() + " " + operation.getNum2() + " result " + operation.getResult();
+            operationBuilder.append(operationList);
+            operationBuilder.append("\n");
+
         }
+
+        String historyOfOperation = operationBuilder.toString();
+        resp.getWriter().print(historyOfOperation);
 
     }
 }
+
+
